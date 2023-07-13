@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--gray-400);
+
+  height: 4.5rem;
+  width: 46rem;
+  color: var(--gray-100);
+  background: var(--gray-500);
+  margin-top: 1.5rem;
+}
+
+.wrapper p {
+  font-size: 0.875rem;
+  margin: 0 12px 0 12px;
+}
+
+.checkedText {
+  opacity: 0.5;
+  text-decoration: line-through;
+  transition: opacity 0.9s ease text-decoration 0.9s ease;
+}
+
+.trashButton {
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: color 0.2s ease;
+  border-radius: 4px;
+}
+
+.trashButton:hover {
+  color: var(--danger);
+  background: var(--gray-400);
+}
+
+/* Checkbox Custom */
+
+.customCheckbox input[type="checkbox"] {
+  display: none;
+}
+
+.customCheckbox img {
+  display: flex;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.customCheckbox img:hover {
+  opacity: 0.5;
+}

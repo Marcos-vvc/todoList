@@ -33,6 +33,12 @@ export function Page() {
     setTasks(tasksWithoutDeletedOne);
   }
 
+  const lowerSearch = tasksText.toLowerCase();
+
+  const tasksFilter = tasks.filter((task) => {
+    return task.toLowerCase().includes(lowerSearch);
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
@@ -63,8 +69,8 @@ export function Page() {
       </div>
 
       <div className={styles.containerTasksLists}>
-        {tasks.length > 0 ? (
-          tasks.map((task, index) => {
+        {tasksFilter.length > 0 ? (
+          tasksFilter.map((task, index) => {
             return <List key={index} task={task} onDeleteTask={deleteTasks} />;
           })
         ) : (

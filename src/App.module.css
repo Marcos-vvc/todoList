@@ -1,17 +1,26 @@
-/* .wrapper {
-  max-width: 46rem;
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(18rem, 20rem) 1fr;
+  max-width: 90rem;
+  height: 100vh;
   margin: 0 auto;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 2rem 4.625rem 9.813rem 15.375rem;
+
+  
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0;
+    width: 320px;
+
+  }
 }
 
 @media (max-width: 768px) {
   html {
     font-size: 87.5%;
   }
-} */
+}
 
 /* Deixei esse código aqui, caso queria futuramente mexê-lo. */

@@ -1,34 +1,33 @@
-import { Trash } from "@phosphor-icons/react";
-import styles from "./List.module.css";
-import { useState, useContext, ChangeEvent } from "react";
-import { AppContext } from "../../context/AppContext";
-import Check from "../../assets/check.svg";
-import Checked from "../../assets/check2.svg";
+import { Trash } from '@phosphor-icons/react'
+import styles from './List.module.css'
+import { useState, useContext, ChangeEvent } from 'react'
+import { AppContext } from '../../context/AppContext'
+import Check from '../../assets/check.svg'
+import Checked from '../../assets/check2.svg'
 
 type Props = {
-  task: string;
-  onDeleteTask: (taskAdd: string) => void;
-};
+  task: string
+  onDeleteTask: (taskAdd: string) => void
+}
 
 export function List({ task, onDeleteTask }: Props) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false)
 
-  const { completedTasksCount, setCompletedTasksCount } =
-    useContext(AppContext);
+  const { completedTasksCount, setCompletedTasksCount } = useContext(AppContext)
 
   function handleTaskCompletion(event: ChangeEvent<HTMLInputElement>) {
-    const newValue = event.target.checked;
-    setIsChecked(newValue);
+    const newValue = event.target.checked
+    setIsChecked(newValue)
 
     if (newValue) {
-      setCompletedTasksCount(completedTasksCount + 1);
+      setCompletedTasksCount(completedTasksCount + 1)
     } else {
-      setCompletedTasksCount(completedTasksCount - 1);
+      setCompletedTasksCount(completedTasksCount - 1)
     }
   }
 
   function handleDeleteTask() {
-    onDeleteTask(task);
+    onDeleteTask(task)
   }
 
   return (
@@ -40,14 +39,14 @@ export function List({ task, onDeleteTask }: Props) {
           onChange={handleTaskCompletion}
         />
         {isChecked ? (
-          <img src={Checked} className={styles.checkedImage} />
+          <img src={Checked} className={styles.checkedImage} alt="" />
         ) : (
-          <img src={Check} />
+          <img src={Check} alt="" />
         )}
       </label>
-      <p className={`${styles.label} ${isChecked ? styles.checkedText : ""} `}>
-        {" "}
-        {task}{" "}
+      <p className={`${styles.label} ${isChecked ? styles.checkedText : ''} `}>
+        {' '}
+        {task}{' '}
       </p>
       <Trash
         className={styles.trashButton}
@@ -55,5 +54,5 @@ export function List({ task, onDeleteTask }: Props) {
         onClick={handleDeleteTask}
       />
     </div>
-  );
+  )
 }

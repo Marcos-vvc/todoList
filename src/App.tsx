@@ -1,16 +1,14 @@
-import styles from './App.module.css'
-import { Profile } from './components/Profile/Profile'
+import { BrowserRouter } from 'react-router-dom'
 import { AppContextProvider } from './context/AppContext'
 import './global.css'
-import { Page } from './pages/page'
+import { Router } from './Router'
 
 export function App() {
   return (
     <AppContextProvider>
-      <div className={styles.wrapper}>
-        <Profile />
-        <Page />
-      </div>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </AppContextProvider>
   )
 }

@@ -1,5 +1,5 @@
 .wrapper {
-  display: grid;
+  /* display: grid;
   grid-template-columns: minmax(18rem, 20rem) 1fr;
   max-width: 90rem;
   height: 100vh;
@@ -14,7 +14,7 @@
     padding: 0;
     width: 320px;
 
-  }
+  } */
 }
 
 @media (max-width: 768px) {

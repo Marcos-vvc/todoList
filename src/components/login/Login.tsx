@@ -2,8 +2,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import styles from './Login.module.css'
 import axios from 'axios'
 import { baseURL } from '../../constants/baseURL'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { notifyErrorLogin } from '../../utils/notifications'
+import { ToastContainer } from 'react-toastify'
 
 interface IUserProfile {
   email: string
@@ -11,21 +12,23 @@ interface IUserProfile {
 }
 
 export function Login() {
-  const { register, handleSubmit } = useForm<IUserProfile>()
-  const [responseLogin, setResponseLogin] = useState('')
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<IUserProfile>()
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<IUserProfile> = async (data) => {
     try {
       const response = await axios.post(`${baseURL}/auth/signin`, data)
-      console.log('Resposta da API:', response)
-
       const token = response.data.access_token
       localStorage.setItem('userTtoken', token)
-      setResponseLogin('Login bem-sucedido!')
+      reset()
       navigate('/page')
-    } catch (error: any) {
-      setResponseLogin('Erro ao cadastrar o usuário.')
+    } catch (error) {
+      notifyErrorLogin()
     }
   }
 
@@ -41,6 +44,7 @@ export function Login() {
               id="email"
               placeholder=""
               {...register('email')}
+              required
             />
           </div>
           <div className={styles['input-group']}>
@@ -50,15 +54,17 @@ export function Login() {
               id="password"
               placeholder=""
               {...register('password')}
+              required
             />
             <div className={styles.forgot}>
               <a rel="noopener noreferrer" href="#">
-                Forgot Password ?
+                Esqueceu sua senha ?
               </a>
             </div>
           </div>
-          <button className={styles.sign} type="submit">
+          <button className={styles.sign} type="submit" disabled={isSubmitting}>
             Login
+            <ToastContainer />
           </button>
         </form>
       </div>

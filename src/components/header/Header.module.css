@@ -4,3 +4,16 @@
   justify-content: center;
   height: 12.5rem;
 }
+
+.button {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  border: none; 
+  text-decoration: none;
+  cursor: pointer;
+  background:none;
+  color:#F1F3F9;
+  font-size: 0.9rem;
+
+}

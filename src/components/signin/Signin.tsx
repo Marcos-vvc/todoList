@@ -1,9 +1,10 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import styles from './Signin.module.css'
-import { useState } from 'react'
 import axios from 'axios'
 import { baseURL } from '../../constants/baseURL'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import { notifyError, notifySucess } from '../../utils/notifications'
 
 interface IUserFormInput {
   name: string
@@ -12,17 +13,22 @@ interface IUserFormInput {
 }
 
 export function Signin() {
-  const { register, handleSubmit } = useForm<IUserFormInput>()
-  const [responseMessage, setResponseMessage] = useState('')
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<IUserFormInput>()
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<IUserFormInput> = async (data) => {
     try {
-      const response = await axios.post(`${baseURL}/user/create-user`, data)
-      setResponseMessage(response.data)
-      navigate('/login')
-    } catch (error: any) {
-      setResponseMessage('Erro ao cadastrar o usuário.')
+      await axios.post(`${baseURL}/user/create-user`, data)
+      reset()
+      notifySucess()
+      setTimeout(() => navigate('/login'), 2000)
+    } catch (error) {
+      notifyError()
     }
   }
   return (
@@ -32,7 +38,13 @@ export function Signin() {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles['input-group']}>
             <label htmlFor="name">Nome</label>
-            <input type="text" id="name" placeholder="" {...register('name')} />
+            <input
+              type="text"
+              id="name"
+              placeholder=""
+              {...register('name')}
+              required
+            />
           </div>
           <div className={styles['input-group']}>
             <label htmlFor="email">Email</label>
@@ -41,6 +53,7 @@ export function Signin() {
               id="email"
               placeholder=""
               {...register('email')}
+              required
             />
           </div>
           <div className={styles['input-group']}>
@@ -50,18 +63,17 @@ export function Signin() {
               id="password"
               placeholder=""
               {...register('password')}
+              required
             />
           </div>
-          <button className={styles.sign} type="submit">
+          <button className={styles.sign} type="submit" disabled={isSubmitting}>
             Cadastrar
+            <ToastContainer />
           </button>
         </form>
-        {responseMessage && <p>{responseMessage}</p>}
         <p className={styles.login}>
           Já tem conta?{' '}
-          <a rel="noopener noreferrer" href="#" className="">
-            Login
-          </a>
+          <button onClick={() => navigate('/login')}>Login</button>
         </p>
       </div>
     </div>

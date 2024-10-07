@@ -5,12 +5,14 @@ import { List } from '../components/list/list'
 import Clip from '../assets/Clipboard.png'
 import { AppContext } from '../context/AppContext'
 import { Header } from '../components/header/header'
+import { useNavigate } from 'react-router-dom'
 
 export function Page() {
   const [tasks, setTasks] = useState<string[]>([])
   const [tasksCount, setTaskCount] = useState(0)
   const [tasksText, setTasksText] = useState('')
   const { completedTasksCount } = useContext(AppContext)
+  const navigate = useNavigate()
 
   function handleTasksAdd() {
     if (tasksText.trim() === '') {
@@ -40,10 +42,15 @@ export function Page() {
     return task.toLowerCase().includes(lowerSearch)
   })
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('userTtoken')
+    navigate('/login')
+  }
+
   return (
     <>
       <div className={styles.container}>
-        <Header />
+        <Header onLogout={handleLogout} />
         <div className={styles.form}>
           <input
             className={styles.input}

@@ -1,9 +1,18 @@
 import styles from './Header.module.css'
 
-export function Header() {
+interface NavbarProps {
+  onLogout: () => void
+}
+
+export function Header({ onLogout }: NavbarProps) {
   return (
-    <header className={styles.header}>
-      <h2>Lista de Tarefas</h2>
-    </header>
+    <div>
+      <header className={styles.header}>
+        <h2>Lista de Tarefas</h2>
+      </header>
+      <button className={styles.button} onClick={onLogout}>
+        Sair
+      </button>
+    </div>
   )
 }

@@ -24,7 +24,7 @@ export function Login() {
     try {
       const response = await axios.post(`${baseURL}/auth/signin`, data)
       const token = response.data.access_token
-      localStorage.setItem('userTtoken', token)
+      localStorage.setItem('userToken', token)
       reset()
       navigate('/page')
     } catch (error) {
